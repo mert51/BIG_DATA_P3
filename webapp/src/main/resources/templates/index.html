@@ -11,6 +11,16 @@
 </head>
 <body>
 <h2>Employees</h2>
+<p th:if="${message}" th:text="${message}" style="color:green"></p>
+
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <select name="empno">
+        <option th:each="e : ${employees}" th:value="${e.empno}" th:text="${e.ename}"></option>
+    </select>
+    <input type="file" name="file" accept=".jpg,.jpeg">
+    <button type="submit">Upload photo to HDFS</button>
+</form>
+<br>
 <form action="/" method="get">
     <input type="text" name="name" th:value="${name}" placeholder="Search by name (e.g. scott)">
     <button type="submit">Search</button>
@@ -32,5 +42,20 @@
         <td th:text="${totals[e.empno]} ?: '0.00'"></td>
     </tr>
 </table>
+<div th:each="e : ${employees}" th:if="${records[e.empno] != null}">
+    <h3 th:text="${e.ename} + ' - latest expense records'"></h3>
+    <table>
+        <tr>
+            <th>Date</th><th>Description</th><th>Type</th><th>Count</th><th>Payment</th>
+        </tr>
+        <tr th:each="r : ${records[e.empno]}">
+            <td th:text="${r.date_time}"></td>
+            <td th:text="${r.description}"></td>
+            <td th:text="${r.type}"></td>
+            <td th:text="${r.count}"></td>
+            <td th:text="${r.payment}"></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

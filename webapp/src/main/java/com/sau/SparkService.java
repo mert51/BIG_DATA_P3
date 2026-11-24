@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PreDestroy;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.apache.spark.sql.functions.col;
@@ -42,7 +45,7 @@ public class SparkService {
                 .load();
     }
 
-    // Tek kullanici icin toplam (PDF: "Scott icin sorgu")
+    // Tek kullanici icin toplam
     public String total(int userId) {
         Row r = expenses().filter(col("user_id").equalTo(userId))
                 .agg(sum("payment").alias("total")).first();
@@ -55,6 +58,28 @@ public class SparkService {
         Map<Integer, String> result = new HashMap<>();
         for (Row r : rows.collectAsList()) {
             result.put(r.getInt(0), format(r.getDecimal(1)));
+        }
+        return result;
+    }
+
+    // Tek kullanicinin son 50 harcama kaydi
+    public List<Map<String, Object>> records(int userId) {
+        List<Row> rows = expenses()
+                .filter(col("user_id").equalTo(userId))
+                .orderBy(col("date_time").desc())
+                .limit(50)
+                .collectAsList();
+
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Row r : rows) {
+            Map<String, Object> m = new HashMap<>();
+            Timestamp ts = r.getAs("date_time");
+            m.put("date_time", ts.toLocalDateTime().toString().replace('T', ' '));
+            m.put("description", r.getAs("description"));
+            m.put("type", r.getAs("type"));
+            m.put("count", r.getAs("count"));
+            m.put("payment", format(r.getAs("payment")));
+            result.add(m);
         }
         return result;
     }
