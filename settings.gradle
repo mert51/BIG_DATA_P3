@@ -1,0 +1,5 @@
+rootProject.name = 'p3-bigdata'
+
+include 'generator'
+include 'spark-query'
+include 'webapp'

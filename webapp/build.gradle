@@ -1,0 +1,33 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.18'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+// Spring Boot 2.7 Jackson 2.13 getirir, Spark 3.4.0 ise 2.14 ister
+ext['jackson-bom.version'] = '2.14.2'
+
+configurations.all {
+    exclude group: 'org.slf4j', module: 'slf4j-reload4j'
+    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    exclude group: 'ch.qos.reload4j', module: 'reload4j'
+    exclude group: 'log4j', module: 'log4j'
+    // Spark'in log4j baglayicisi, Spring Boot'un Logback'iyle cakisir
+    exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j2-impl'
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'com.mysql:mysql-connector-j:8.0.33'
+
+    // hocanin build.gradle'indaki gibi
+    implementation("org.apache.hadoop:hadoop-hdfs:3.4.0")
+    implementation("org.apache.hadoop:hadoop-client:3.4.0")
+    implementation("org.apache.hadoop:hadoop-common:3.4.0")
+
+    implementation("org.apache.spark:spark-core_2.13:3.4.0")
+    implementation("org.apache.spark:spark-sql_2.13:3.4.0")
+    implementation("com.datastax.spark:spark-cassandra-connector_2.13:3.4.1")
+    implementation("joda-time:joda-time:2.12.5")
+}

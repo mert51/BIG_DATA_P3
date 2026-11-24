@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Report</title>
+    <style>
+        table { border-collapse: collapse; }
+        th, td { border: 1px solid #999; padding: 6px 12px; text-align: left; }
+        th { background: #eee; }
+    </style>
+</head>
+<body>
+<h2>Employees</h2>
+<form action="/" method="get">
+    <input type="text" name="name" th:value="${name}" placeholder="Search by name (e.g. scott)">
+    <button type="submit">Search</button>
+    <a href="/">Show all</a>
+</form>
+<br>
+<table>
+    <tr>
+        <th>Image</th><th>Name</th><th>Manager</th>
+        <th>Salary</th><th>Commission</th><th>Department</th><th>total_expense</th>
+    </tr>
+    <tr th:each="e : ${employees}">
+        <td><img th:src="'/img/' + ${e.img}" style="width:60px;height:60px;object-fit:cover" alt="photo"></td>
+        <td th:text="${e.ename}"></td>
+        <td th:text="${e.mgr_name} ?: '-'"></td>
+        <td th:text="${e.sal}"></td>
+        <td th:text="${e.comm} ?: '-'"></td>
+        <td th:text="${e.dname}"></td>
+        <td th:text="${totals[e.empno]} ?: '0.00'"></td>
+    </tr>
+</table>
+</body>
+</html>

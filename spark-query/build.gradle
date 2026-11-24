@@ -1,0 +1,14 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation("org.apache.spark:spark-core_2.13:3.4.0")
+    implementation("org.apache.spark:spark-sql_2.13:3.4.0")
+    implementation("com.datastax.spark:spark-cassandra-connector_2.13:3.4.1")
+    implementation("joda-time:joda-time:2.12.5")
+}
+
+application {
+    mainClass = 'com.sau.Main'
+}
