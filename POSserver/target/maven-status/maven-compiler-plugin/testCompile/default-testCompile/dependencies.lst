@@ -1,0 +1,6 @@
+classpath:/Users/admin/Desktop/BIG_DATA/p3-bigdata/POSserver/target/classes	3:8988fee518e61a75f75eca11f78b20637b6a670d01cb64a158d7621100bec0b1
+classpath:/Users/admin/.m2/repository/org/apache/kafka/kafka-clients/3.8.0/kafka-clients-3.8.0.jar	8283066:1721724350000
+classpath:/Users/admin/.m2/repository/com/github/luben/zstd-jni/1.5.6-3/zstd-jni-1.5.6-3.jar	6650280:1713920795000
+classpath:/Users/admin/.m2/repository/org/lz4/lz4-java/1.8.0/lz4-java-1.8.0.jar	682804:1624084292000
+classpath:/Users/admin/.m2/repository/org/xerial/snappy/snappy-java/1.1.10.5/snappy-java-1.1.10.5.jar	2299797:1695799286000
+classpath:/Users/admin/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar	41125:1644327230000

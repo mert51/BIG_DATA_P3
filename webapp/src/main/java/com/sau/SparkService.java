@@ -32,7 +32,6 @@ public class SparkService {
                     .config("spark.driver.bindAddress", "127.0.0.1")
                     .config("spark.ui.enabled", "false")
                     .getOrCreate();
-            sparkSession.sparkContext().setLogLevel("ERROR");
         }
         return sparkSession;
     }
